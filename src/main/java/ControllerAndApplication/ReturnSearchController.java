@@ -85,7 +85,7 @@ public class ReturnSearchController implements Initializable {
         });
 
         @FXML
-        private void populatesearch(ReturnSearch rs) throws ClassNotFoundException {
+        private void populateSearch (ReturnSearch rs) throws ClassNotFoundException {
             //Declare and ObservableList for table view
             ObservableList<ReturnSearch> cusData = FXCollections.observableArrayList();
             //Add employee to the ObservableList
@@ -97,7 +97,7 @@ public class ReturnSearchController implements Initializable {
         @FXML
         private void populateAndShowSearch(ReturnSearch rs) throws ClassNotFoundException {
             if (rs != null) {
-                populatesearch(rs);
+                populateSearch(rs);
             } else {
                 System.out.println("This customer does not exist!\n");
             }
@@ -115,7 +115,7 @@ public class ReturnSearchController implements Initializable {
             //Get Employee information
             ReturnSearch cus = SearchRepository.ReturnSearch(PurchaseReturnID.getText(), purchaseOrderID.getText(), SupplierID.getText(), ContactName.getText(),ContactTitle.getText(),OrderDate.getText(),Status.getText(),NetAmount.getText());
             //Populate Employee on TableView and Display on TextArea
-            populateAndShowCustomer(cus);
+            //populateAndShowCustomer(cus);
         } catch (SQLException e) {
             e.printStackTrace();
             //resultArea.setText("Error occurred while getting employee information from DB.\n" + e);
@@ -131,7 +131,7 @@ public class ReturnSearchController implements Initializable {
             System.out.println("Customer inserted! \n");
 
             //reload all records
-            Returnsearch(actionEvent);
+            //Returnsearch(actionEvent);
         } catch (SQLException e) {
             System.out.println("Problem occurred while inserting Customer " + e);
             throw e;

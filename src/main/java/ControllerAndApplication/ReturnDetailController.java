@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 public class ReturnDetailController {
-
     @FXML
     private TextField d_pono;
     @FXML
@@ -89,7 +88,7 @@ public class ReturnDetailController {
     public void addDetail(ActionEvent event) {
         try {
             //add new employee
-            DetailRepository.insertCus(POLineNumber.getText(), itemID.getText(),Description.getText(),ManufacturerPartNo.getText(), Uom.getText(), OrderQty.getText(), UnitPrice.getText(),NetAmount.getText());
+            DetailRepository.insertCus(d_pono.getText(), d_orderdate.getText(),d_supplier.getText(),d_contactname.getText(), d_contacttitle.getText(), d_requireddate.getText(), d_promiseddate.getText(),d_paymentdate.getText());
 
         } catch (SQLException e) {
             System.out.println("Problem occurred while inserting Customer " + e);
@@ -103,26 +102,25 @@ public class ReturnDetailController {
                 return DetailRepository.searchReturnDetail();
             }
         };
-
         task.setOnFailed(e-> task.getException().printStackTrace());
         task.setOnSucceeded(e-> ReturnDetailTable.setItems((ObservableList<ReturnDetail>) task.getValue()));
         exec.execute(task);
     }
     @FXML
-    private void populateDetail (ReturnSearch res) throws ClassNotFoundException {
+    private void populateDetail (ReturnDetail rd) throws ClassNotFoundException {
         //Declare and ObservableList for table view
-        ObservableList<ReturnSearch> resData = FXCollections.observableArrayList();
+        ObservableList<ReturnDetail> resData = FXCollections.observableArrayList();
         //Add employee to the ObservableList
-        resData.add(res);
+        resData.add(rd);
         //Set items to the employeeTable
         ReturnDetailTable.setItems(resData);
     }
 
     //Populate Employee for TableView and Display Employee on TextArea
     @FXML
-    private void populateAndShowDetail(ReturnSearch res) throws ClassNotFoundException {
-        if (res != null) {
-            populateDetail(res);
+    private void populateAndShowDetail(ReturnDetail rd) throws ClassNotFoundException {
+        if (rd != null) {
+            populateDetail(rd);
         } else {
             System.out.println("This Detail does not exist!\n");
         }
