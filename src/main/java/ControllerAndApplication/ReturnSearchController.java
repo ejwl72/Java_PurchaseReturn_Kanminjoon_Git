@@ -1,4 +1,4 @@
-package com.example.demo4;
+package ControllerAndApplication;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,13 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import models.ReturnDetail;
-import models.ReturnSearch;
+import ReturnDetailAndSearch.ReturnDetail;
+import ReturnDetailAndSearch.ReturnSearch;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
@@ -26,7 +26,16 @@ public class ReturnSearchController implements Initializable {
     private Label welcomeText;
     @FXML
     private AnchorPane rootPane;
-
+    @FXML
+    private TextField ponum;
+    @FXML
+    private TextField supplier;
+    @FXML
+    private TextField contactname;
+    @FXML
+    private TextField contacttitle;
+    @FXML
+    private TextField orderdate;
 
     @FXML
     private TableView ReturnSearchTable;
@@ -75,49 +84,20 @@ public class ReturnSearchController implements Initializable {
             return t;
         });
 
-    @FXML //search버튼
-    public void Returnsearch(ActionEvent event) {
-        try {
-            //Get Employee information
-            ReturnSearch cus = CustomerRepository.searchCustomer(cusIdText.getText());
-            //Populate Employee on TableView and Display on TextArea
-            populateAndShowCustomer(cus);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            //resultArea.setText("Error occurred while getting employee information from DB.\n" + e);
-            throw e;
-        }
-    }
-    @FXML //add버튼
-    public void insertCustomer(ActionEvent event) {
-        try {
-            //add new employee
-            CustomerRepository.insertCus(idText.getText(), nameText.getText(),surnameText.getText(),emailText.getText(), jobText.getText());
-            System.out.println("Customer inserted! \n");
-
-            //reload all records
-            searchCustomer(actionEvent);
-        } catch (SQLException e) {
-            System.out.println("Problem occurred while inserting Customer " + e);
-            throw e;
-        }
-    }
-
         @FXML
-        private void populateCustomer(ReturnSearch res) throws ClassNotFoundException {
+        private void populatesearch(ReturnSearch rs) throws ClassNotFoundException {
             //Declare and ObservableList for table view
             ObservableList<ReturnSearch> cusData = FXCollections.observableArrayList();
             //Add employee to the ObservableList
-            cusData.add(cus);
+            cusData.add(rs);
             //Set items to the employeeTable
             ReturnSearchTable.setItems(cusData);
         }
 
         @FXML
-        private void populateAndShowSearch(ReturnSearch sea) throws ClassNotFoundException {
-            if (cus != null) {
-                populateEmployee(cus);
-                setEmpInfoToTextArea(cus);
+        private void populateAndShowSearch(ReturnSearch rs) throws ClassNotFoundException {
+            if (rs != null) {
+                populatesearch(rs);
             } else {
                 System.out.println("This customer does not exist!\n");
             }
@@ -127,5 +107,39 @@ public class ReturnSearchController implements Initializable {
     public void OpenDetail(ActionEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("return_reason.fxml"));
         rootPane.getChildren().setAll(pane);
+    }
+
+    @FXML //search버튼
+    public void Returnsearch(ActionEvent event) {
+        try {
+            //Get Employee information
+            ReturnSearch cus = SearchRepository.ReturnSearch(PurchaseReturnID.getText(), purchaseOrderID.getText(), SupplierID.getText(), ContactName.getText(),ContactTitle.getText(),OrderDate.getText(),Status.getText(),NetAmount.getText());
+            //Populate Employee on TableView and Display on TextArea
+            populateAndShowCustomer(cus);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //resultArea.setText("Error occurred while getting employee information from DB.\n" + e);
+            throw e;
+        }
+    }
+
+    @FXML //add버튼
+    public void insertCustomer(ActionEvent event) {
+        try {
+            //add new employee
+            SearchRepository.insertSearch(PurchaseReturnID.getText(), purchaseOrderID.getText(), SupplierID.getText(), ContactName.getText(),ContactTitle.getText(),OrderDate.getText(),Status.getText(),NetAmount.getText());
+            System.out.println("Customer inserted! \n");
+
+            //reload all records
+            Returnsearch(actionEvent);
+        } catch (SQLException e) {
+            System.out.println("Problem occurred while inserting Customer " + e);
+            throw e;
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

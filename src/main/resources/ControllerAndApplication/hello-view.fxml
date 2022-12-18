@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="500.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo4.ReturnSearchController">
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerAndApplication.ReturnSearchController">
     <padding>
         <Insets bottom="0" left="0" right="0" top="0" />
     </padding>
@@ -19,7 +19,7 @@
               <font><Font name="Arial" size="15.0" /></font></Label>
           <Button layoutX="96.0" layoutY="30.0" onAction="#onHelloButtonClick" text="..." />
           <ChoiceBox layoutX="10.0" layoutY="30.0" prefHeight="20.0" prefWidth="80.0" />
-          <ChoiceBox layoutX="10.0" layoutY="30.0" prefHeight="20.0" prefWidth="80.0" />
+          <ChoiceBox id="ponum" layoutX="10.0" layoutY="30.0" prefHeight="20.0" prefWidth="80.0" />
          <TableView fx:id="ReturnSearchTable" layoutX="10.0" layoutY="65.0" prefHeight="390.0" prefWidth="980.0">
            <columns>
              <TableColumn prefWidth="70" text="Sr#" />
@@ -33,13 +33,23 @@
                <TableColumn prefWidth="90.0" text="" />
            </columns>
          </TableView>
-         <ComboBox layoutX="130.0" layoutY="30.0" prefHeight="20.0" prefWidth="150.0" />
-          <TextField layoutX="330.0" layoutY="30.0" prefHeight="20.0" prefWidth="130.0" />
-          <TextField layoutX="500.0" layoutY="30.0" prefHeight="20.0" prefWidth="130.0" />
-         <DatePicker layoutX="665.0" layoutY="30.0" prefHeight="20.0" prefWidth="70.0" />
-          <Button layoutX="765.0" layoutY="30.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="100.0" onAction="#Returnsearch" text="Search" />
-          <Button layoutX="890.0" layoutY="30.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="100.0" onAction="#insertCustomer" text="+Add new" />
-         <Button layoutX="622.0" layoutY="41.0" mnemonicParsing="false"  onAction="#OpenDetail" text="Open" />
+         <ComboBox id="supplier" layoutX="130.0" layoutY="30.0" prefHeight="20.0" prefWidth="150.0" />
+          <TextField id="contactname" layoutX="330.0" layoutY="30.0" prefHeight="20.0" prefWidth="130.0" />
+          <TextField id="contacttitle" layoutX="500.0" layoutY="30.0" prefHeight="20.0" prefWidth="130.0" />
+         <DatePicker id="orderdate" layoutX="665.0" layoutY="30.0" prefHeight="20.0" prefWidth="70.0" />
+          <Button layoutX="765.0" layoutY="30.0" mnemonicParsing="false" onAction="#Returnsearch" prefHeight="22.0" prefWidth="100.0" text="Search" />
+          <Button layoutX="890.0" layoutY="30.0" mnemonicParsing="false" onAction="#insertCustomer" prefHeight="22.0" prefWidth="100.0" text="+Add new" />
+         <Button layoutX="622.0" layoutY="41.0" mnemonicParsing="false" onAction="#OpenDetail" text="Open" />
+         <Label layoutX="519.0" layoutY="7.0" text="Contact Title:">
+            <font>
+               <Font name="Arial" size="15.0" />
+            </font>
+         </Label>
+         <Label layoutX="160.0" layoutY="6.0" text="Suppiler:">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
       </children>
    </AnchorPane>
 </VBox>

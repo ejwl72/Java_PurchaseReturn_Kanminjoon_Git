@@ -1,28 +1,41 @@
-package com.example.demo4;
+package ControllerAndApplication;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import models.ReturnDetail;
-import models.ReturnSearch;
+import ReturnDetailAndSearch.ReturnDetail;
+import ReturnDetailAndSearch.ReturnSearch;
 
-import java.io.IOException;
-import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
 
 public class ReturnDetailController {
 
+    @FXML
+    private TextField d_pono;
+    @FXML
+    private TextField d_orderdate;
+    @FXML
+    private TextField d_supplier;
+    @FXML
+    private TextField d_contactname;
+    @FXML
+    private TextField d_contacttitle;
+    @FXML
+    private TextField d_requireddate;
+    @FXML
+    private TextField d_promiseddate;
+    @FXML
+    private TextField d_paymentdate;
     @FXML
     private Label welcomeText;
     @FXML
@@ -58,8 +71,7 @@ public class ReturnDetailController {
     @FXML //delete 버튼
     public void deleteDetail(ActionEvent event) {
         try {
-            CustomerRepository.deleteCusWithId(resIdText.getText());
-            System.out.println("Customer deleted! Customer id: " + resIdText.getText() + "\n");
+            DetailRepository.delete(POLineNumber.getText(), itemID.getText(),Description.getText(),ManufacturerPartNo.getText(), Uom.getText(), OrderQty.getText(), UnitPrice.getText(),NetAmount.getText());
         } catch (SQLException e) {
             System.out.println("Problem occurred while deleting Customer " + e);
             throw e;
@@ -77,7 +89,8 @@ public class ReturnDetailController {
     public void addDetail(ActionEvent event) {
         try {
             //add new employee
-            CustomerRepository.insertCus(idText.getText(), nameText.getText(),surnameText.getText(),emailText.getText(), jobText.getText());
+            DetailRepository.insertCus(POLineNumber.getText(), itemID.getText(),Description.getText(),ManufacturerPartNo.getText(), Uom.getText(), OrderQty.getText(), UnitPrice.getText(),NetAmount.getText());
+
         } catch (SQLException e) {
             System.out.println("Problem occurred while inserting Customer " + e);
             throw e;
@@ -87,7 +100,7 @@ public class ReturnDetailController {
         Task<List<ReturnDetail>> task = new Task<List<ReturnDetail>>(){
             @Override
             public ObservableList<ReturnDetail> call() throws Exception{
-                return CustomerRepository.searchReturnDetail();
+                return DetailRepository.searchReturnDetail();
             }
         };
 
@@ -111,7 +124,7 @@ public class ReturnDetailController {
         if (res != null) {
             populateDetail(res);
         } else {
-            System.out.println("This customer does not exist!\n");
+            System.out.println("This Detail does not exist!\n");
         }
     }
 }
